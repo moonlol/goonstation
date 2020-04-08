@@ -190,11 +190,19 @@ proc/build_syndi_buylist_cache()
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 
 /datum/syndicate_buylist/generic/katana
+if ASS_JAM
+	name = "Katna"
+	item = /obj/item/katana_sheath
+	cost = 7
+	desc = "Katna"
+	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
+#else
 	name = "Katana"
 	item = /obj/item/katana_sheath
 	cost = 7
 	desc = "A Japanese sword created in the fire of a dying star. Comes with a sheath for easier storage"
 	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
+#endif
 
 /datum/syndicate_buylist/generic/wrestling
 	name = "Wrestling Belt"
