@@ -195,7 +195,6 @@ if ASS_JAM
 	item = /obj/item/katana_sheath
 	cost = 7
 	desc = "Katna"
-	blockedmode = list(/datum/game_mode/spy, /datum/game_mode/revolution)
 #else
 	name = "Katana"
 	item = /obj/item/katana_sheath
