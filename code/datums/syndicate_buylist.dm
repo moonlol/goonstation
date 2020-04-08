@@ -191,7 +191,7 @@ proc/build_syndi_buylist_cache()
 
 /datum/syndicate_buylist/generic/katana
 if ASS_JAM
-	name = "Katna"
+	name = "katna"
 	item = /obj/item/katana_sheath
 	cost = 7
 	desc = "Katna"
