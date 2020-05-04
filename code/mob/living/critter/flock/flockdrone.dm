@@ -331,7 +331,10 @@
 				var/obj/item/organ/heart/flock/F = I
 				boutput(src, "<span class='notice'>You assimilate [F]'s resource cache, adding <span class='bold'>[F.resources]</span> resources to your own (you now have [src.resources] resource[src.resources == 1 ? "" : "s"]).</span>")
 				src.resources += F.resources
-			qdel(I)
+			if(istype(I, /obj/item/raw_material))
+				pool(I) //gotta pool stuff bruh
+			else
+				qdel(I)
 	// AI ticks are handled in mob_ai.dm, as they ought to be
 
 /mob/living/critter/flock/drone/process_move(keys)
@@ -708,10 +711,12 @@
 	if (user.floorrunning)
 		return // you'll need to be out of the floor to do anything
 	// CONVERT TURF
-	if(!isturf(target))
-		target = get_turf(target)
+//	message_admins("[target] target pre")//debugmessages
+	if(!isturf(target) && !(istype(target, /obj/storage/closet/flock) || istype(target, /obj/table/flock) || istype(target, /obj/structure/girder) || istype(target, /obj/machinery/door/feather)))
+		target = get_turf(target) 
+//	message_admins("[target] target post")//debugmessages
 
-	if(!istype(target, /turf/simulated) && !istype(target, /turf/space))
+	if(istype(target, /turf) && !istype(target, /turf/simulated) && !istype(target, /turf/space))
 		boutput(user, "<span class='alert'>Something about this structure prevents it from being assimilated.</span>")
 	else if(isfeathertile(target))
 		if(istype(target, /turf/simulated/floor/feather))
@@ -736,10 +741,32 @@
 				boutput(user, "<span class='notice'>It's already been repurposed. Can't improve on perfection. (Use the disarm intent to construct a barricade.)</span>")
 		else
 			boutput(user, "<span class='notice'>It's already been repurposed. Can't improve on perfection.</span>")
-	else if(user.resources < 20)
+	else if(user.resources < 20 && istype(target, /turf))
 		boutput(user, "<span class='alert'>Not enough resources to convert (you need 20).</span>")
 	else
-		actions.start(new/datum/action/bar/flock_convert(target), user)
+		if(istype(target, /turf))
+			actions.start(new/datum/action/bar/flock_convert(target), user)
+	if(user.a_intent == INTENT_HARM)
+		if(istype(target, /obj/table/flock))
+			actions.start(new /datum/action/bar/icon/table_tool_interact(target, null, TABLE_DISASSEMBLE), user)
+		else if(istype(target, /obj/storage/closet/flock))
+			//soap
+			actions.start(new /datum/action/bar/flock_locker_decon(target), user)
+		else if(istype(target, /turf/simulated/wall/auto/feather))
+			actions.start(new /datum/action/bar/flock_wall_decon(target), user)
+		else if(istype(target, /obj/structure/girder))
+			if(target?.material.mat_id == "gnesis")
+				var/atom/A = new /obj/item/sheet(get_turf(target))
+				if (target.material)
+					A.setMaterial(target.material)
+					qdel(A)
+			else
+				return
+		else if(istype(target, /obj/machinery/door/feather))
+			actions.start(new /datum/action/bar/flock_door_decon(target), user)
+		else
+			..()
+
 
 /datum/limb/flock_converter/help(mob/target, var/mob/living/critter/flock/drone/user)
 	if(!target || !user)
@@ -778,6 +805,21 @@
 		boutput(user, "<span class='alert'>They're already imprisoned, you can't double-imprison them!</span>")
 	else
 		actions.start(new/datum/action/bar/flock_entomb(target), user)
+
+ //FUCK - moonlol
+/datum/limb/flock_converter/harm(atom/target, var/mob/living/critter/flock/drone/user)
+	if(!target || !user)
+		return
+	if(user.floorrunning)
+		return
+	if(istype(target, /mob/living/critter/flock/drone))
+		var/mob/living/critter/flock/drone/f = target
+		if(isdead(f))
+			actions.start(new/datum/action/bar/icon/butcher_living_critter(f), user)
+		else
+			boutput(user, "<span class='alert'>You can't butcher a living flockdrone!</span>")
+	else
+		..()
 
 /////////////////////////////////////////////////////////////////////////////////
 

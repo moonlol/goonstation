@@ -1,10 +1,3 @@
-
-#define TABLE_DISASSEMBLE 0
-#define TABLE_WEAKEN 1
-#define TABLE_STRENGTHEN 2
-#define TABLE_ADJUST 3
-#define TABLE_LOCKPICK 4
-
 /obj/table
 	name = "table"
 	desc = "A metal table strong enough to support a substantial amount of weight, but easily made portable by unsecuring the bolts with a wrench."
@@ -874,7 +867,7 @@
 
 	onUpdate()
 		..()
-		if (the_table == null || the_tool == null || owner == null || get_dist(owner, the_table) > 1)
+		if ((the_table == null || the_tool == null || owner == null || get_dist(owner, the_table) > 1) && !istype(owner, /mob/living/critter/flock/drone)) //allows flock drones to decon flock tables
 			interrupt(INTERRUPT_ALWAYS)
 			return
 		var/mob/source = owner
