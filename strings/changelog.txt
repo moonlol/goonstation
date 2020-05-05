@@ -1,4 +1,13 @@
 
+(t)mon may 04 20
+(u)Gannets
+(p)578
+(e)🎨|sprites
+(+)New sprites for 9mm pistol, tranqulizer pistol, .22 magazines, gun cases + attache cases.
+(u)Erinexx
+(p)546
+(e)🗺🎨|mapping, sprites
+(*)Some new grenade sprites
 (t)sun may 03 20
 (u)Kubius
 (p)567
