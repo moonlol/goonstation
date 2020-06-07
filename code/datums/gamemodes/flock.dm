@@ -40,7 +40,7 @@
 	//TODO
 	..()
 
-/datum/game_mode/nuclear/declare_completion()
+/datum/game_mode/flock/declare_completion()
 	//TODO
 	..()
 
