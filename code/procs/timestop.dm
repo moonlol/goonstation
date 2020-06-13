@@ -201,5 +201,5 @@ proc/timestop(setimmune, setduration, setsize, var/loopfreeze = FALSE) // loopfr
 	A.color = list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0,0,0,1, 1,1,1,0)
 
 /obj/effect/timefield/proc/reversecolourout(atom/A)
-	A.color = old_colors["\ref[A]"] //un reverses colours
+	A?.color = old_colors["\ref[A]"] //un reverses colours
 #endif

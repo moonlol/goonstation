@@ -767,6 +767,9 @@
 
 	proc/rotate(var/face_dir = 0)
 		if (rotatable)
+#ifdef ASSJAM
+			if(paused)  return
+#endif
 			if (!face_dir)
 				src.dir = turn(src.dir, 90)
 			else
