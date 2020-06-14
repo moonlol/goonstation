@@ -342,13 +342,14 @@
 		..()
 		if(target)
 			var/mob/living/critter/flock/F = owner
-			var/mob/living/critter/flock/T
-			if(istype(target, /mob/living/critter/flock))
-				T = target
+			var/T = target
+			var/mob/living/critter/flock/C
+			if(istype(T, /mob/living/critter/flock))
+				C = T
 			if(F)
-				if(T)
-					F.tri_message("<span class='notice'>[owner] begins spraying glowing fibres onto [T].</span>",
-						F, "<span class='text-blue'>You begin repairing [T.real_name]. You will both need to stay still for this to work.</span>",
+				if(C)
+					F.tri_message("<span class='notice'>[owner] begins spraying glowing fibres onto [C].</span>",
+						F, "<span class='text-blue'>You begin repairing [C.real_name]. You will both need to stay still for this to work.</span>",
 						T, "<span class='text-blue'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
 						"You hear hissing and spraying.")
 				else
@@ -357,8 +358,8 @@
 						T, "<span class='text-blue'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
 						"You hear hissing and spraying.")
 				playsound(T, "sound/misc/flockmind/flockdrone_quickbuild.ogg", 50, 1)
-				if(T?.is_npc)
-					T.ai.wait()
+				if(C?.is_npc)
+					C.ai.wait()
 
 	onEnd()
 		..()
