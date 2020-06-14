@@ -349,13 +349,13 @@
 			if(F)
 				if(C)
 					F.tri_message("<span class='notice'>[owner] begins spraying glowing fibres onto [C].</span>",
-						F, "<span class='text-blue'>You begin repairing [C.real_name]. You will both need to stay still for this to work.</span>",
-						T, "<span class='text-blue'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
+						F, "<span class='notice'>You begin repairing [C.real_name]. You will both need to stay still for this to work.</span>",
+						T, "<span class='notice'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
 						"You hear hissing and spraying.")
 				else
 					F.tri_message("<span class='notice'>[owner] begins spraying glowing fibres onto [T].</span>",
-						F, "<span class='text-blue'>You begin repairing [T]. You will both need to stay still for this to work.</span>",
-						T, "<span class='text-blue'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
+						F, "<span class='notice'>You begin repairing [T]. You will both need to stay still for this to work.</span>",
+						T, "<span class='notice'>[F.real_name] begins repairing you. You will both need to stay still for this to work.</span>",
 						"You hear hissing and spraying.")
 				playsound(T, "sound/misc/flockmind/flockdrone_quickbuild.ogg", 50, 1)
 				if(C?.is_npc)
