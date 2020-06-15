@@ -37,27 +37,8 @@
 	return 1
 
 /datum/game_mode/flock/check_finished()
-//	if(emergency_shuttle.location == SHUTTLE_LOC_RETURNED)
-//		return 1
-	if (no_automatic_ending)
-		return 0
-	for(var/datum/mind/M in traitors)
-		message_admins("[M] is M. [M.special_role] is m.special_role")
-		if(!M)
-			continue
-		if(M.special_role != "flockmind")
-			continue
-		if(isflock(M.current))
-			return 0
-	for(var/datum/mind/M in Agimmicks)
-		message_admins("[M] is M. [M.special_role] is m.special_role")
-		if(!M)
-			continue
-		if(M.special_role != "flockmind")
-			continue
-		if(isflock(M.current))
-			return 0
-//	return 1
+	//todo
+	..()
 
 /datum/game_mode/flock/declare_completion()
 	//TODO
