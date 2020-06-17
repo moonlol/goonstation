@@ -1437,7 +1437,7 @@ var/global/icon/human_static_base_idiocy_bullshit_crap = icon('icons/mob/human.d
 /mob/living/Move(var/turf/NewLoc, direct)
 	. = ..()
 	if (. && move_dir && !(direct & move_dir) && src.use_stamina)
-		if (sustained_moves >= SUSTAINED_RUN_REQ+1) //jesus fuck dont have intangible mobs sprint puffs
+		if (sustained_moves >= SUSTAINED_RUN_REQ+1)
 			sprint_particle_small(src,get_step(NewLoc,turn(move_dir,180)),turn(move_dir,180))
 			playsound(src.loc,"sound/effects/sprint_puff.ogg", 9, 1,extrarange = -25, pitch=2.8)
 		sustained_moves = 0
