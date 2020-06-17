@@ -1609,7 +1609,7 @@ var/global/icon/human_static_base_idiocy_bullshit_crap = icon('icons/mob/human.d
 						else
 							. *= max(A.p_class, 1)
 				else if(istype(A, /obj/storage))
-					// if the storage object contains mobs, use its p_class (updated within storage to reflect containing mobs or not) //jesus fuck dont have intangible mobs sprint puffs
+					// if the storage object contains mobs, use its p_class (updated within storage to reflect containing mobs or not)
 					if (locate(/mob) in A.contents)
 						. *= max(A.p_class,1)
 
