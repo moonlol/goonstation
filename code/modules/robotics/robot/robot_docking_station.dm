@@ -865,9 +865,47 @@
 	p_class = 1.5
 
 /obj/machinery/recharge_station/syndicate/attackby(obj/item/W as obj, mob/user as mob)
-	if (iswrenchingtool(W))
+	if(istype(W, /obj/item/grab))
+		var/obj/item/grab/g = W
+		if (!src.conversion_chamber)
+			boutput(user, "<span class='alert'>Humans cannot enter recharging stations.</span>")
+			return
+		else if(g.state == 0)//not agressive?
+			boutput(user, "<span class='alert'>You're grab is not tight enough!</span>")
+			return
+		else
+			var/mob/living/carbon/human/H = g?.affecting
+			if (isdead(H))
+				boutput(user, "<span class='alert'>[H] is dead and cannot be forced inside.</span>")
+				return
+			var/delay = 0
+			if (user != H)
+				delay = 30
+				logTheThing("combat", user, H, "puts [constructTarget(H,"combat")] into a conversion chamber at [showCoords(src.x, src.y, src.z)]")
+				logTheThing("diary", user, H, "puts [constructTarget(H,"diary")] into a conversion chamber at [showCoords(src.x, src.y, src.z)]", "combat")
+			if (delay)
+				user.visible_message("<b>[user]</b> begins moving [H] into [src].")
+				boutput(user, "Both you and [H] will need to remain still for this action to work.")
+			var/turf/T1 = get_turf(user)
+			var/turf/T2 = get_turf(H)
+			SPAWN_DBG(delay)
+				if (user.loc != T1 || H.loc != T2)
+					return
+
+				if (user != H)
+					user.visible_message("<b>[user]</b> moves [H] into [src].")
+				else
+					user.visible_message("<b>[user]</b> climbs into [src].")
+				H.pulling = null
+				H.set_loc(src)
+				src.occupant = H
+				src.add_fingerprint(user)
+				src.build_icon()
+
+	else if (iswrenchingtool(W))
 		src.anchored = !src.anchored
 		user.show_text("You [anchored ? "attach" : "release"] \the [src]'s floor clamps", "red")
 		playsound(get_turf(src), "sound/items/Ratchet.ogg", 40, 0, 0)
 		return
-	..()
+	else
+		..()
