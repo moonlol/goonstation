@@ -79,7 +79,7 @@
 							mobtohit = nearbymob
 				hit.len = 0//clean up
 				charge = 1
-				var/filter = src.filters[length(src.filters)]//force the visual to power down
+				var/filter = rays.filters[length(rays.filters)]//force the visual to power down
 				animate(filter, size=((-(cos(180*(3/100))-1)/2)*32), time=1 SECONDS, flags = ANIMATION_PARALLEL)
 				charge_status = CHARGING
 				return
