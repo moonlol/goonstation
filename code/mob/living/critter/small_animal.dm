@@ -421,18 +421,6 @@ todo: add more small animals!
 	attackby(obj/item/W as obj, mob/living/user as mob)
 		if (istype(W, /obj/item/card/emag))
 			emag_act(user, W)
-		if (istype(W, /obj/item/card/id/blank_deluxe))
-			if (W.desc == "Some type of microchipped payment card. Looks like it's designed to deal with catcoins.")//Can't change descs
-				if (!swiped && W.stamina_cost == 1)
-					if (user)
-						user.show_text("You swipe down [src]'s back in a petting motion...")
-						src.show_text("[user] swipes the card down your back in a petting motion...")
-					src.visible_message("<span class='combat'>[src] vomits out a wad of paper!</span>",\
-					"<span class='combat'>You vomit out a wad of paper!</span>") //Jones City Puzzle
-					make_cleanable(/obj/decal/cleanable/vomit, src.loc)
-					new /obj/item/paper/jones_note(src.loc)
-					swiped++
-					W.stamina_cost = 2 //Can only use the card once.
 		else
 			..()
 
@@ -2535,6 +2523,8 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 			return
 		if(voluntary && M != src.last_poked) // if we poked that person it means we implicitly agree
 			boutput(M, "You extend your hand to the mouse, waiting for it to accept.")
+			if (ON_COOLDOWN(src, "mentor mouse pickup popup", 3 SECONDS))
+				return
 			if (alert(src, "[M] wants to pick you up and put you in their pocket. Is that okay with you?", "Hop in the pocket", "Yes", "No") != "Yes")
 				boutput(M, "\The [src] slips out as you try to pick it up.")
 				return
