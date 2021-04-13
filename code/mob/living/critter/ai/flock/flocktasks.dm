@@ -131,6 +131,7 @@
 				// if we can get a valid path to the target, include it for consideration
 				if(cirrAstar(get_turf(holder.owner), PT, 1, 80))
 					. += PT
+					return
 
 	// else just go for one nearby
 	for(var/turf/simulated/T in view(max_dist, holder.owner))
