@@ -199,4 +199,7 @@
 
 /mob/living/intangible/flock/proc/createstructure(var/T, var/resources = 0)
 	//todo check for flocktile underneath flockmind cheers
+	if(!istype(src.loc, /turf/simulated/floor/feather))
+		boutput(src, "You are not over a flocktile and therefore cannot place a building here.")
+		return
 	new /obj/flock_structure/ghost(src.loc, T, src.flock, resources)
